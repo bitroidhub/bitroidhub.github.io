@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CalendarEvents - календарь событий</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/moment-with-locales.min.js"></script>
+	<script type="text/javascript" src="js/bitroidCalendarEv.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bitroidCalendarEv.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/prism.css">
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1>
+				<span class="black">CalendarEv</span><span class="white">ents</span>
+				<br>
+				<span class="descr">Календарь событий</span>
+			</h1>
+			<nav class="top-menu">
+				<ul>
+					<li class="top-menu__item">
+						<a href="#description">описание</a>
+					</li>
+					<li class="top-menu__item">
+						<a href="#demos">демо</a>
+					</li>
+					<li class="top-menu__item">
+						<a href="#how">подключение</a>
+					</li>
+					<li class="top-menu__item">
+						<a href="#parameters">параметры</a>
+					</li>
+					<li class="top-menu__item">
+						<a href="#getitnow">скачать</a>
+					</li>
+					<li class="top-menu__item">
+						<a href="https://github.com/bitroidhub/CalendarEv/" target="_blank">GitHub</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="content">
+				<h2 id="description">Описание</h2>
+				<p>
+				<ul>
+					<li><a href="https://github.com/bitroidhub/CalendarEv/" target="_blank">Репозиторий на GitHub</a></li>
+					<li>Плагин CalendarEvents сделан на основе плагина календаря <a href="http://ionden.com/a/plugins/ion.calendar/index.html" target="_blank">Ion.Calendar</a></li>
+					<li>Все возможности плагина Ion.Calendar сохранены и добавлена возможность задавать при инициализации и выводить события</li>
+					<li>Позволяет выводить несколько событий для одного дня</li>
+					<li>CalendarEvents основан на мощной библиотеке для работы со временем - Moment.js.</li>
+					<li>Поддерживает несколько независимо работающих календарей на одной странице</li>
+					<li>Кроссбраузерная поддержка: Google Chrome, Mozilla Firefox, Opera, Safari, IE(8.0+)</li>
+					<li>Плагин поддерживает устройства с touch-экраном (iPhone, iPad, etc.)</li>
+				</ul>
+				</p>
+			</div>
+			<div class="content">
+				<h2 id="demos">Демо</h2>
+				<h3>Календарь с событиями</h3>
+				<p>
+					Календарь на русском, первый день - понедельник. Вывод годов с 2010 по 2020. <br>Отображение событий: 3 февраля 2017 (2 события), 20 февраля 2017 (1 событие).
+				</p>
+
+				<div class="demos__item">
+					<div id="calendar-1" class="demos__item-calendar"></div>
+					<div class="demos__item-code">
+					<pre class="language-javascript"><code class="language-javascript">
+$('#calendar-1').bitroidCalendarEv({
+    lang: "ru",
+    sundayFirst: false,
+    years: "2010-2020",
+    format: "DD.MM.YYYY",
+    showEventBlock: true,
+    events : [
+    	{
+    		day : "03",
+    		month : "02",
+    		year : "2017",
+    		event_description : "Описание события",
+    		event_title : "Заголовок для события",
+    		event_body : "Описание для события"
+    	},
+    	{
+    		day : "03",
+    		month : "02",
+    		year : "2017",
+    		event_description : "Описание события 2",
+    		event_body : "Событие 2!"
+    	},
+    	{
+    		day : "20",
+    		month : "02",
+    		year : "2017",
+    		event_description : "Описание события",
+    		event_body : "Событие!"
+    	}
+    ],
+    containers : {
+    	events : ".calendarev-events-container"
+    }
+});
+
+</code></pre>
+					</div>
+				</div>
+				
+			</div>
+			<div class="content">
+				<h3>Календарь без событий</h3>
+				<p>Календарь на русском, первый день - воскресенье. Вывод годов с 2010 по 2020. </p>
+				<div class="demos__item">
+					<div id="calendar-2" class="demos__item-calendar"></div>
+					<div class="demos__item-code">
+					<pre class="language-javascript"><code class="language-javascript">
+$('#calendar-2').bitroidCalendarEv({
+    lang: "en",
+    sundayFirst: true,
+    years: "2010-2020",
+    showEventBlock: false
+});
+
+</code></pre>	</div>
+			</div>
+			</div>
+
+
+			<div class="content">
+				<h3>Календарь на английском</h3>
+				<p>Календарь на английском, первый день - воскресенье. Вывод годов с 2017 по 2050. </p>
+				<div class="demos__item">
+					<div id="calendar-3" class="demos__item-calendar"></div>
+					<div class="demos__item-code">
+					<pre class="language-javascript"><code class="language-javascript">
+$('#calendar-3').bitroidCalendarEv({
+    lang: "en",
+    sundayFirst: true,
+    years: "2017-2050",
+    showEventBlock: false
+});
+
+</code></pre>	</div>
+			</div>
+			</div>
+
+
+			<div class="content">
+				<h3>Календарь на японском</h3>
+				<p>Календарь на японском. Первый день недели - воскресенье. Возвращает дату в локализованом формате.<br>Доступный диапазон лет: текущий год минус 20 лет.<br>По клику на день отображает всплывающее окно с датой в формате, которая указана скриптом (LLLL).</p>
+				<div class="demos__item">
+					<div id="calendar-4" class="demos__item-calendar"></div>
+					<div class="demos__item-code">
+					<pre class="language-javascript"><code class="language-javascript">
+$('#calendar-4').bitroidCalendarEv({
+    lang: "ja",
+    years: "20",
+    format: "LLLL",
+    onClick: function(date){
+        alert("onClick: " + date);
+    }
+});
+
+</code></pre>	</div>
+			</div>
+			</div>
+
+
+
+			<div class="content">
+				<h2 id="how">Подключение</h2>
+				<p>
+					Для использования CalendarEvents потребуется подключить библиотеку JQuery 1.9+ и Moments.js 2.1+. 
+				</p>
+				<p>
+					В шапке сайта подключите файл стилей bitroidCalendarEv.css - в нем находятся стили календаря.<br>Также необходимо подключить следующие скрипты: библиотеку jQuery выше версии 1.9, moment-with-locales.min.js, bitroidCalendarEv.js 
+				</p>
+				<pre class="language-markup"><code class="language-markup">
+&lt;link rel="stylesheet" type="text/css" href="css/bitroidCalendarEv.css"&gt; &lt;!-- стили --&gt;
+
+&lt;script type="text/javascript" src="js/jquery.min.js"&gt;&lt;/script&gt; &lt;!-- библиотека jquery --&gt;
+&lt;script type="text/javascript" src="js/moment-with-locales.min.js"&gt;&lt;/script&gt; &lt;!-- библиотека moment-with-locales.min.js --&gt;
+&lt;script type="text/javascript" src="js/bitroidCalendarEv.js"&gt;&lt;/script&gt; &lt;!-- плагин CalendarEvents --&gt;
+
+</code></pre>
+				<p>
+					Создайте контейнер, в котором будет находиться календарь.
+				</p>
+				<pre class="language-markup"><code class="language-markup">
+&lt;div id="calendar-id" class="my-class"&gt;&lt;/div&gt;
+
+</code></pre>
+			<p>Инициализируйте календарь с параметрами или без них</p>
+			<pre class="language-javascript"><code class="language-javascript">
+$('#calendar-id').bitroidCalendarEv();
+
+</code></pre>
+			</div>
+
+
+			<div class="content">
+				<h2 id="parameters">Параметры</h2>
+				<h3>Свойства</h3>
+				<table class="simple-table">
+					<tr>
+						<th>Атрибут</th>
+						<th>По умолчанию</th>
+						<th>Описание</th>
+					</tr>
+                    <tr>
+                        <td>lang</td>
+                        <td>"en"</td>
+                        <td>Необязательный параметр, позволяет выбрать язык календаря. Каждый дополнительный язык требует <a href="https://github.com/timrwood/moment/tree/develop/min/lang" target="_blank">своего файла локализации</a></td>
+                    </tr>
+                    <tr>
+                        <td>sundayFirst</td>
+                        <td>true</td>
+                        <td>Необязательный параметр, позволяет выбрать первый день недели в календаре. (Например в США неделя начинается с воскресенья, в России с понедельника). Если <code>true</code> - то первый день будет воскресенье, если <code>false</code> - то понедельник.</td>
+                    </tr>
+                    <tr>
+                        <td>years</td>
+                        <td>"80"</td>
+                        <td>Необязательный параметр, определяет дипазон лет, которым будет оперировать календарь. Может принимать 1 или 2 значения через дефис. Значения должны быть целыми числами. Одиночное значение, например "80", означает, что дипазон календаря: 80 лет назад - сегодняшний год. Двойное значение же, например "1900-2000" задает точный диапазон от 1900-го до 2000-го года.</td>
+                    </tr>
+                    <tr>
+                        <td>format</td>
+                        <td>—</td>
+                        <td>Необязательный параметр, задает формат возвращаемой даты. Основные значения: пустой - вернет дату в формате ISO8601; "moment" - вернет объект moment(); "<a href="http://momentjs.com/docs/#/displaying/format/" target="_blank">строка сформированная по правилам Moment.js</a>" - вернет дату в выбранном формате. Например строка "DD.MM.YYYY" - вернет "15.07.2013".</td>
+                    </tr>
+                    <tr>
+                        <td>clickable</td>
+                        <td>true</td>
+                        <td>Необязательный параметр, если установить <code>false</code>, то клики по дням больше не будут возвращать дату.</td>
+                    </tr>
+                    <tr>
+                        <td>hideArrows</td>
+                        <td>false</td>
+                        <td>Необязательный параметр, прячет стрелки переключения месяцев.</td>
+                    </tr>
+                    <tr>
+                        <td>startDate</td>
+                        <td>—</td>
+                        <td>Необязательный параметр, позволяет отметить на календаре выбранную дату (имеет смысл для датапикера).</td>
+                    </tr>
+                   <tr>
+                        <td>showEventBlock</td>
+                        <td>false</td>
+                        <td>Необязательный параметр, должен быть установлен в <code>true</code> только если необходимо вывести события</td>
+                    </tr>
+                    <tr>
+                        <td>events</td>
+                        <td>—</td>
+                        <td>Необязательный параметр, должен быть заполнен только если необходимо вывести события. Представляет из себя массив событий, где каждый элемент массива - это объект, в котором описывается одно и только одно событие одного дня. Для того, чтобы записать несколько событий обного дня, следует указать их друг за другом. Например:
+<pre class="language-javascript"><code class="language-javascript">
+events : [
+	{
+		day : "03",
+		month : "02",
+		year : "2017",
+		event_description : "Описание события",
+		event_title : "Заголовок для события",
+		event_body : "Описание для события"
+	},
+	{
+		day : "03",
+		month : "02",
+		year : "2017",
+		event_description : "Описание события 2",
+		event_body : "Событие 2!"
+	}
+]
+
+</code></pre>		
+                        </td>
+                    </tr>
+				</table>
+
+
+
+
+				<h3>Атрибуты для параметра <b>events</b></h3>
+				<table class="simple-table table--events">
+					<tr>
+						<th>Атрибут</th>
+						<th>Описание</th>
+					</tr>
+                    <tr>
+                        <td>day</td>
+                        <td>День. Обязательный параметр. Число, начинающееся с нуля, если меньше 10. Значение должно быть обернуто в скобки и восприниматься как строка</td>
+                    </tr>
+                    <tr>
+                        <td>month</td>
+                        <td>Месяц. Обязательный параметр. Число, начинающееся с нуля, если меньше 10. Значение должно быть обернуто в скобки и восприниматься как строка</td>
+                    </tr>
+                    <tr>
+                        <td>year</td>
+                        <td>Год. Обязательный параметр. Четырехзначное число. Значение должно быть обернуто в скобки и восприниматься как строка</td>
+                    </tr>
+                     <tr>
+                        <td>event_title</td>
+                        <td>Заголовок события. Необязательный параметр. При выводе событий будет визуально выделяться.</td>
+                    </tr>
+                     <tr>
+                        <td>event_body</td>
+                        <td>Описание события. Необязательный параметр. При выводе событий будет находиться под заголовком события.</td>
+                    </tr>
+                     <tr>
+                        <td>event_description</td>
+                        <td>Описание события, которое отображается при наведении на день, к которому привязано событие. Необязательный параметр.</td>
+                    </tr>
+				</table>
+
+
+
+				<h3>Функции</h3>
+				<table class="simple-table">
+					<tr>
+						<th>Атрибут</th>
+						<th>По умолчанию</th>
+						<th>Описание</th>
+					</tr>
+                    <tr>
+                        <td>onClick</td>
+                        <td>—</td>
+                        <td>Функция возвращает выбранную дату при клике по дням. Возвращаемое значение может быть строкой или объектом moment().</td>
+                    </tr>
+                    <tr>
+                        <td>onReady</td>
+                        <td>—</td>
+                        <td>Функция возвращает текущую дату при готовоности календаря. В том же формате что и onClick</td>
+                    </tr>
+				</table>
+			</div>
+
+
+
+			<div class="content content--getitnow">
+				<h2 id="getitnow">Скачать CalendarEvents</h2>
+
+				<a href="https://github.com/bitroidhub/CalendarEv/archive/master.zip" class="link-load">Скачать архив</a>
+				<a href="https://github.com/bitroidhub/CalendarEv/" class="link-load">GitHub</a>	
+			</div>
+
+
+		</main>
+		
+	</div>
+</body>
+</html>
+
+<script src="js/script.js"></script>
+<script src="js/prism.js"></script>
